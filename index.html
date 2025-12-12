@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Zalamería - Elevador ZalamerØ</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Quicksand', 'Montserrat', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .landing-wrapper {
+      width: 100%;
+      background: linear-gradient(135deg, #5CD6E0 0%, #ffffff 100%);
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      width: 100%;
+      min-height: 100%;
+      position: relative;
+      background: linear-gradient(135deg, #5CD6E0 0%, #E91E8C 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      overflow: hidden;
+    }
+    
+    .logo-container {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+    
+    .logo {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+    
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .elevator-frame {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 180px auto 40px;
+    }
+    
+    .elevator-doors {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-height: 700px;
+      perspective: 1000px;
+      border: 10px solid #89c4d8;
+      border-radius: 12px 12px 0 0;
+      box-shadow: 0 20px 60px rgba(92, 214, 224, 0.3);
+      background: #d4eef5;
+    }
+    
+    .door {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(180deg, #a8d5e2 0%, #7db9d1 50%, #5fa3bd 100%);
+      border: 3px solid #89c4d8;
+      box-shadow: inset 0 0 40px rgba(92, 214, 224, 0.3);
+      transition: transform 2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .door-handle {
+      width: 50px;
+      height: 140px;
+      background: linear-gradient(90deg, #6bb0c9 0%, #89c4d8 50%, #6bb0c9 100%);
+      border-radius: 25px;
+      box-shadow: inset 0 4px 12px rgba(92, 214, 224, 0.4), 0 4px 8px rgba(255, 255, 255, 0.3);
+      position: relative;
+    }
+    
+    .door-handle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      background: #4a93ab;
+      border-radius: 50%;
+      box-shadow: inset 0 2px 6px rgba(92, 214, 224, 0.6);
+    }
+    
+    .door-left {
+      left: 0;
+      border-right: 2px solid #1a1a1a;
+      animation: doorOpenLeft 3s ease-in-out infinite;
+    }
+    
+    .door-left .door-handle {
+      margin-right: 30px;
+    }
+    
+    .door-right {
+      right: 0;
+      border-left: 2px solid #1a1a1a;
+      animation: doorOpenRight 3s ease-in-out infinite;
+    }
+    
+    .door-right .door-handle {
+      margin-left: 30px;
+    }
+    
+    @keyframes doorOpenLeft {
+      0%, 30% { transform: translateX(0); }
+      50%, 80% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+    
+    @keyframes doorOpenRight {
+      0%, 30% { transform: translateX(0); }
+      50%, 80% { transform: translateX(100%); }
+      100% { transform: translateX(0); }
+    }
+    
+    .elevator-display {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #d4eef5;
+      padding: 15px 30px;
+      border-radius: 10px;
+      border: 3px solid #89c4d8;
+      box-shadow: 0 4px 16px rgba(92, 214, 224, 0.3);
+    }
+    
+    .display-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: #5CD6E0;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      text-shadow: 0 0 10px rgba(92, 214, 224, 0.6);
+    }
+    
+    .elevator-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 5;
+      width: 80%;
+    }
+    
+    .hero-title {
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      text-shadow: 
+        3px 3px 0 #E91E8C,
+        -3px -3px 0 #E91E8C,
+        3px -3px 0 #E91E8C,
+        -3px 3px 0 #E91E8C,
+        4px 4px 12px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+      font-size: 24px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 40px;
+      text-shadow: 
+        2px 2px 0 #B76FE8,
+        -2px -2px 0 #B76FE8,
+        2px -2px 0 #B76FE8,
+        -2px 2px 0 #B76FE8,
+        3px 3px 8px rgba(0, 0, 0, 0.4);
+    }
+    
+    .cta-button {
+      background: linear-gradient(135deg, #E91E8C, #FF6B9D);
+      color: white;
+      border: none;
+      padding: 20px 50px;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(233, 30, 140, 0.4);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(233, 30, 140, 0.6);
+      background: linear-gradient(135deg, #FF6B9D, #E91E8C);
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      animation: bounce 2s infinite;
+      z-index: 10;
+    }
+    
+    .scroll-text {
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .scroll-arrow {
+      width: 40px;
+      height: 40px;
+      border: 3px solid white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: rgba(233, 30, 140, 0.5);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      margin: 0 auto;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-20px); }
+      60% { transform: translateX(-50%) translateY(-10px); }
+    }
+    
+    /* Floor Sections */
+    .floor-section {
+      width: 100%;
+      min-height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      overflow: hidden;
+    }
+    
+    .floor-1 { background: linear-gradient(135deg, #5CD6E0 0%, #B76FE8 100%); }
+    .floor-2 { background: linear-gradient(135deg, #B76FE8 0%, #FF6B9D 100%); }
+    .floor-3 { background: linear-gradient(135deg, #FF6B9D 0%, #FFB6D9 100%); }
+    .floor-4 { background: linear-gradient(135deg, #FFB6D9 0%, #5CD6E0 100%); }
+    .floor-5 { background: linear-gradient(135deg, #5CD6E0 0%, #E91E8C 100%); }
+    .floor-6 { background: linear-gradient(135deg, #E91E8C 0%, #B76FE8 100%); }
+    .floor-7 { background: linear-gradient(135deg, #B76FE8 0%, #FF6B9D 100%); }
+    
+    .floor-indicator {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #d4eef5;
+      padding: 15px 40px;
+      border-radius: 10px;
+      border: 3px solid #89c4d8;
+      box-shadow: 0 4px 16px rgba(92, 214, 224, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .floor-number {
+      font-size: 36px;
+      font-weight: 800;
+      color: #5CD6E0;
+      font-family: 'Courier New', monospace;
+      text-shadow: 0 0 10px rgba(92, 214, 224, 0.6);
+    }
+    
+    .elevator-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    
+    .floor-frame {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 100px auto 40px;
+    }
+    
+    .floor-doors {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-height: 700px;
+      background: #d4eef5;
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+      border: 10px solid #89c4d8;
+      box-shadow: 0 8px 32px rgba(92, 214, 224, 0.3);
+    }
+    
+    .floor-door {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(180deg, #a8d5e2 0%, #7db9d1 50%, #5fa3bd 100%);
+      border: 3px solid #89c4d8;
+      transition: transform 1.5s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    
+    .floor-door-left {
+      left: 0;
+      border-right: 2px solid #1a1a1a;
+    }
+    
+    .floor-door-left .door-handle {
+      margin-right: 30px;
+    }
+    
+    .floor-door-right {
+      right: 0;
+      border-left: 2px solid #1a1a1a;
+    }
+    
+    .floor-door-right .door-handle {
+      margin-left: 30px;
+    }
+    
+    .floor-section:hover .floor-door-left {
+      transform: translateX(-100%);
+    }
+    
+    .floor-section:hover .floor-door-right {
+      transform: translateX(100%);
+    }
+    
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .floor-description {
+      max-width: 600px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    
+    .floor-title {
+      font-size: 42px;
+      font-weight: 800;
+      color: white;
+      text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+    
+    .floor-text {
+      font-size: 20px;
+      font-weight: 500;
+      color: white;
+      text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    
+    .next-floor-btn {
+      background: rgba(255, 255, 255, 0.95);
+      color: #E91E8C;
+      border: 3px solid white;
+      padding: 18px 45px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .next-floor-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      background: white;
+    }
+    
+    .navigation-guide {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 100;
+      background: rgba(212, 238, 245, 0.95);
+      padding: 20px 12px;
+      border-radius: 50px;
+      border: 3px solid #89c4d8;
+      box-shadow: 0 8px 32px rgba(92, 214, 224, 0.3);
+    }
+    
+    .nav-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #b3dde8;
+      border: 2px solid #89c4d8;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-dot::after {
+      content: attr(data-floor);
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #d4eef5;
+      color: #5CD6E0;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      border: 2px solid #89c4d8;
+    }
+    
+    .nav-dot:hover::after {
+      opacity: 1;
+    }
+    
+    .nav-dot:hover,
+    .nav-dot.active {
+      background: #5CD6E0;
+      border-color: #5CD6E0;
+      transform: scale(1.4);
+      box-shadow: 0 0 15px rgba(92, 214, 224, 0.6);
+    }
+    
+    /* Final Section */
+    .final-section {
+      width: 100%;
+      min-height: 100%;
+      position: relative;
+      background: linear-gradient(135deg, #5CD6E0 0%, #E91E8C 50%, #FFB6D9 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      overflow: hidden;
+    }
+    
+    .final-doors {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 700px;
+      margin: 40px auto;
+      border: 10px solid #89c4d8;
+      border-radius: 12px 12px 0 0;
+      background: #d4eef5;
+      box-shadow: 0 20px 60px rgba(92, 214, 224, 0.3);
+    }
+    
+    .final-door {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(180deg, #a8d5e2 0%, #7db9d1 50%, #5fa3bd 100%);
+      border: 3px solid #89c4d8;
+      box-shadow: 0 8px 32px rgba(92, 214, 224, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .final-door-left {
+      left: 0;
+      border-right: 2px solid #1a1a1a;
+      animation: finalDoorLeft 2s ease-in-out forwards;
+    }
+    
+    .final-door-left .door-handle {
+      margin-right: 30px;
+    }
+    
+    .final-door-right {
+      right: 0;
+      border-left: 2px solid #1a1a1a;
+      animation: finalDoorRight 2s ease-in-out forwards;
+    }
+    
+    .final-door-right .door-handle {
+      margin-left: 30px;
+    }
+    
+    @keyframes finalDoorLeft {
+      to { transform: translateX(-100%); }
+    }
+    
+    @keyframes finalDoorRight {
+      to { transform: translateX(100%); }
+    }
+    
+    .flyer-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      height: 85%;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    
+    .flyer-title {
+      font-size: 56px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #5CD6E0, #E91E8C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .flyer-subtitle {
+      font-size: 28px;
+      font-weight: 600;
+      color: #B76FE8;
+      margin-bottom: 50px;
+    }
+    
+    .flyer-visual {
+      width: 100%;
+      max-width: 400px;
+      height: 250px;
+      background: linear-gradient(135deg, rgba(92, 214, 224, 0.2), rgba(233, 30, 140, 0.2));
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 50px;
+      border: 3px dashed #E91E8C;
+    }
+    
+    .cta-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .cta-primary {
+      background: linear-gradient(135deg, #E91E8C, #FF6B9D);
+      color: white;
+      border: none;
+      padding: 22px 55px;
+      font-size: 22px;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(233, 30, 140, 0.4);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(233, 30, 140, 0.6);
+      background: linear-gradient(135deg, #FF6B9D, #E91E8C);
+    }
+    
+    .cta-secondary {
+      background: linear-gradient(135deg, #5CD6E0, #4AC5D0);
+      color: white;
+      border: none;
+      padding: 22px 55px;
+      font-size: 22px;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(92, 214, 224, 0.4);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .cta-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(92, 214, 224, 0.6);
+      background: linear-gradient(135deg, #4AC5D0, #5CD6E0);
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title { font-size: 32px; }
+      .hero-subtitle { font-size: 18px; }
+      .floor-title { font-size: 32px; }
+      .floor-text { font-size: 16px; }
+      .flyer-title { font-size: 38px; }
+      .flyer-subtitle { font-size: 22px; }
+      .navigation-guide { right: 10px; padding: 15px 8px; }
+      .nav-dot { width: 12px; height: 12px; }
+      .cta-button, .cta-primary, .cta-secondary, .next-floor-btn {
+        padding: 16px 35px;
+        font-size: 16px;
+      }
+      .scroll-text { font-size: 16px; }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="landing-wrapper"><!-- Hero Section -->
+   <section class="hero-section" id="hero">
+    <div class="logo-container">
+     <div class="logo"><img src="imagenes/logo.jpg" alt="La Zalamería Logo" onerror="this.src='imagenes/logo.png'; this.alt='Logo';">
+     </div>
+    </div>
+    <div class="elevator-frame">
+     <div class="elevator-display">
+      <div class="display-number">
+       H
+      </div>
+     </div>
+     <div class="elevator-doors">
+      <div class="door door-left">
+       <div class="door-handle"></div>
+      </div>
+      <div class="door door-right">
+       <div class="door-handle"></div>
+      </div>
+      <div class="elevator-content">
+       <h1 class="hero-title" id="heroTitle">Bienvenida al Elevador Zalamero</h1>
+       <p class="hero-subtitle" id="heroSubtitle">7 pisos, 7 años, 1 sueño</p><button class="cta-button" id="heroButton">Subir al Piso 1</button>
+      </div>
+     </div>
+    </div>
+    <div class="scroll-indicator">
+     <div class="scroll-text"><span>👇</span> <span>Baja para comenzar el viaje</span> <span>👇</span>
+     </div>
+     <div class="scroll-arrow">
+      ↓
+     </div>
+    </div>
+   </section><!-- Floor 1 -->
+   <section class="floor-section floor-1" id="floor1">
+    <div class="floor-indicator"><span class="elevator-icon">🛗</span> <span class="floor-number">PISO 1</span>
+    </div>
+    <div class="floor-frame">
+     <div class="floor-doors">
+      <div class="floor-door floor-door-left">
+       <div class="door-handle"></div>
+      </div>
+      <div class="floor-door floor-door-right">
+       <div class="door-handle"></div>
+      </div>
+      <div class="video-container"><iframe src="https://drive.google.com/file/d/1gJLFWxsprsHd-ZSdVRKNt4who1wkqEYD/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+     </div>
+    </div>
+    <div class="floor-description">
+     <h2 class="floor-title" id="floor1Title">Presentación</h2>
+     <p class="floor-text" id="floor1Desc">Conoce la historia que dio inicio a este hermoso viaje.</p><button class="next-floor-btn" data-next="floor2"> Sube al Piso 2 <span>↓</span> </button>
+    </div>
+   </section><!-- Floor 2 -->
+   <section class="floor-section floor-2" id="floor2">
+    <div class="floor-indicator"><span class="elevator-icon">🛗</span> <span class="floor-number">PISO 2</span>
+    </div>
+    <div class="floor-frame">
+     <div class="floor-doors">
+      <div class="floor-door floor-door-left">
+       <div class="door-handle"></div>
+      </div>
+      <div class="floor-door floor-door-right">
+       <div class="door-handle"></div>
+      </div>
+      <div class="video-container"><iframe src="https://drive.google.com/file/d/1RBMD1_cUH3ghcY5T5e-Gc87kbCypsuyz/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+     </div>
+    </div>
+    <div class="floor-description">
+     <h2 class="floor-title" id="floor2Title">Lo que te hace feliz</h2>
+     <p class="floor-text" id="floor2Desc">Descubre lo que realmente llena tu corazón de alegría.</p><button class="next-floor-btn" data-next="floor3"> Sube al Piso 3 <span>↓</span> </button>
+    </div>
+   </section><!-- Floor 3 -->
+   <section class="floor-section floor-3" id="floor3">
+    <div class="floor-indicator"><span class="elevator-icon">🛗</span> <span class="floor-number">PISO 3</span>
+    </div>
+    <div class="floor-frame">
+     <div class="floor-doors">
+      <div class="floor-door floor-door-left">
+       <div class="door-handle"></div>
+      </div>
+      <div class="floor-door floor-door-right">
+       <div class="door-handle"></div>
+      </div>
+      <div class="video-container"><iframe src="https://drive.google.com/file/d/1KT84mejfEvUZIkufYHguUh3tPkkrZGEd/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+     </div>
+    </div>
+    <div class="floor-description">
+     <h2 class="floor-title" id="floor3Title">Los miedos de mis alumnas…</h2>
+     <p class="floor-text" id="floor3Desc">Transformando temores en fortalezas y crecimiento.</p><button class="next-floor-btn" data-next="floor4"> Sube al Piso 4 <span>↓</span> </button>
+    </div>
+   </section><!-- Floor 4 -->
+   <section class="floor-section floor-4" id="floor4">
+    <div class="floor-indicator"><span class="elevator-icon">🛗</span> <span class="floor-number">PISO 4</span>
+    </div>
+    <div class="floor-frame">
+     <div class="floor-doors">
+      <div class="floor-door floor-door-left">
+       <div class="door-handle"></div>
+      </div>
+      <div class="floor-door floor-door-right">
+       <div class="door-handle"></div>
+      </div>
+      <div class="video-container"><iframe src="https://drive.google.com/file/d/1UpU0aSTudQNDKJHeYXSp0y9TUVqIyjj3/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+     </div>
+    </div>
+    <div class="floor-description">
+     <h2 class="floor-title" id="floor4Title">Nuestro Primer Aniversario</h2>
+     <p class="floor-text" id="floor4Desc">Celebrando el primer año de esta comunidad maravillosa.</p><button class="next-floor-btn" data-next="floor5"> Sube al Piso 5 <span>↓</span> </button>
+    </div>
+   </section><!-- Floor 5 -->
+   <section class="floor-section floor-5" id="floor5">
+    <div class="floor-indicator"><span class="elevator-icon">🛗</span> <span class="floor-number">PISO 5</span>
+    </div>
+    <div class="floor-frame">
+     <div class="floor-doors">
+      <div class="floor-door floor-door-left">
+       <div class="door-handle"></div>
+      </div>
+      <div class="floor-door floor-door-right">
+       <div class="door-handle"></div>
+      </div>
+      <div class="video-container"><iframe src="https://drive.google.com/file/d/1s1cIA-cykNWJ-13A32jW0yk1gs6J_Ogt/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+     </div>
+    </div>
+    <div class="floor-description">
+     <h2 class="floor-title" id="floor5Title">Cuando llegó la pandemia</h2>
+     <p class="floor-text" id="floor5Desc">Momentos difíciles que nos hicieron más fuertes.</p><button class="next-floor-btn" data-next="floor6"> Sube al Piso 6 <span>↓</span> </button>
+    </div>
+   </section><!-- Floor 6 -->
+   <section class="floor-section floor-6" id="floor6">
+    <div class="floor-indicator"><span class="elevator-icon">🛗</span> <span class="floor-number">PISO 6</span>
+    </div>
+    <div class="floor-frame">
+     <div class="floor-doors">
+      <div class="floor-door floor-door-left">
+       <div class="door-handle"></div>
+      </div>
+      <div class="floor-door floor-door-right">
+       <div class="door-handle"></div>
+      </div>
+      <div class="video-container"><iframe src="https://drive.google.com/file/d/1PDA-XuGbju919ZrA_asTSeC1alp7rgO0/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+     </div>
+    </div>
+    <div class="floor-description">
+     <h2 class="floor-title" id="floor6Title">Mi primera vez en televisión</h2>
+     <p class="floor-text" id="floor6Desc">Un sueño cumplido que abrió nuevas puertas.</p><button class="next-floor-btn" data-next="floor7"> Sube al Piso 7 <span>↓</span> </button>
+    </div>
+   </section><!-- Floor 7 -->
+   <section class="floor-section floor-7" id="floor7">
+    <div class="floor-indicator"><span class="elevator-icon">🛗</span> <span class="floor-number">PISO 7</span>
+    </div>
+    <div class="floor-frame">
+     <div class="floor-doors">
+      <div class="floor-door floor-door-left">
+       <div class="door-handle"></div>
+      </div>
+      <div class="floor-door floor-door-right">
+       <div class="door-handle"></div>
+      </div>
+      <div class="video-container"><iframe src="https://drive.google.com/file/d/1QJfjbmzDVHGuzhezjaKRSpnqOJIV24q8/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+     </div>
+    </div>
+    <div class="floor-description">
+     <h2 class="floor-title" id="floor7Title">¡Es tu momento de brillar!</h2>
+     <p class="floor-text" id="floor7Desc">Únete a nuestra comunidad y transforma tu vida. ¡El próximo éxito puedes ser tú!</p><button class="next-floor-btn" data-next="final"> Llegar al Destino Final <span>✨</span> </button>
+    </div>
+  <!-- Final Section -->
+<section class="final-section" id="final">
+    <div class="final-doors">
+        <div class="final-door final-door-left">
+            <div class="door-handle"></div>
+        </div>
+        <div class="final-door final-door-right">
+            <div class="door-handle"></div>
+        </div>
+        <div class="flyer-container">
+            <h2 class="flyer-title" id="finalTitle">¡Tu viaje comienza aquí!</h2>
+            <p class="flyer-subtitle" id="finalSubtitle">Únete al Tour 2026</p>
+            <div class="flyer-visual">
+                <img src="/imagenes/flyer.jpeg" 
+                     alt="Flyer Tour 2026 - La Zalamería"
+                     style="width: 100%; height: 100%; object-fit: contain; border-radius: 15px;">
+            </div>
+            <div class="cta-container">
+                <a href="https://api.whatsapp.com/send?phone=573014878681" target="_blank" rel="noopener noreferrer" class="cta-primary" id="ctaPrimary">Inscribirme</a>
+                <a href="https://api.whatsapp.com/send?phone=573014878681" target="_blank" rel="noopener noreferrer" class="cta-secondary" id="ctaSecondary">Saber más</a>
+            </div>
+        </div>
+    </div>
+</section>
+    </div>
+</section>
+   </section><!-- Navigation Guide -->
+   <div class="navigation-guide">
+    <div class="nav-dot active" data-section="hero" data-floor="Hall" title="Entrada"></div>
+    <div class="nav-dot" data-section="floor1" data-floor="P1" title="Piso 1"></div>
+    <div class="nav-dot" data-section="floor2" data-floor="P2" title="Piso 2"></div>
+    <div class="nav-dot" data-section="floor3" data-floor="P3" title="Piso 3"></div>
+    <div class="nav-dot" data-section="floor4" data-floor="P4" title="Piso 4"></div>
+    <div class="nav-dot" data-section="floor5" data-floor="P5" title="Piso 5"></div>
+    <div class="nav-dot" data-section="floor6" data-floor="P6" title="Piso 6"></div>
+    <div class="nav-dot" data-section="floor7" data-floor="P7" title="Piso 7"></div>
+    <div class="nav-dot" data-section="final" data-floor="FIN" title="Destino"></div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_color: '#5CD6E0',
+      surface_color: '#ffffff',
+      text_color: '#333333',
+      primary_action_color: '#E91E8C',
+      secondary_action_color: '#B76FE8',
+      font_family: 'Quicksand',
+      font_size: 16,
+      hero_title: 'Bienvenida al Elevador Zalamero',
+      hero_subtitle: '7 pisos, 7 años, 1 sueño',
+      hero_button: 'Subir al Piso 1',
+      floor_1_title: 'Presentación',
+      floor_1_desc: 'Conoce la historia que dio inicio a este hermoso viaje.',
+      floor_2_title: 'Lo que te hace feliz',
+      floor_2_desc: 'Descubre lo que realmente llena tu corazón de alegría.',
+      floor_3_title: 'Los miedos de mis alumnas…',
+      floor_3_desc: 'Transformando temores en fortalezas y crecimiento.',
+      floor_4_title: 'Nuestro Primer Aniversario',
+      floor_4_desc: 'Celebrando el primer año de esta comunidad maravillosa.',
+      floor_5_title: 'Cuando llegó la pandemia',
+      floor_5_desc: 'Momentos difíciles que nos hicieron más fuertes.',
+      floor_6_title: 'Mi primera vez en televisión',
+      floor_6_desc: 'Un sueño cumplido que abrió nuevas puertas.',
+      floor_7_title: '¡Es tu momento de brillar!',
+      floor_7_desc: 'Únete a nuestra comunidad y transforma tu vida. ¡El próximo éxito puedes ser tú!',
+      final_title: '¡Tu viaje comienza aquí!',
+      final_subtitle: 'Únete al Tour 2026',
+      cta_primary: 'Inscribirme',
+      cta_secondary: 'Saber más'
+    };
+
+    async function onConfigChange(config) {
+      const baseFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'Montserrat, Nunito, -apple-system, BlinkMacSystemFont, sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      document.body.style.fontFamily = `${baseFont}, ${baseFontStack}`;
+      
+      const heroTitle = document.getElementById('heroTitle');
+      const heroSubtitle = document.getElementById('heroSubtitle');
+      const heroButton = document.getElementById('heroButton');
+      
+      if (heroTitle) {
+        heroTitle.textContent = config.hero_title || defaultConfig.hero_title;
+        heroTitle.style.fontSize = `${baseSize * 3}px`;
+      }
+      if (heroSubtitle) {
+        heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+        heroSubtitle.style.fontSize = `${baseSize * 1.5}px`;
+      }
+      if (heroButton) {
+        heroButton.textContent = config.hero_button || defaultConfig.hero_button;
+        heroButton.style.fontSize = `${baseSize * 1.25}px`;
+      }
+      
+      for (let i = 1; i <= 7; i++) {
+        const titleEl = document.getElementById(`floor${i}Title`);
+        const descEl = document.getElementById(`floor${i}Desc`);
+        
+        if (titleEl) {
+          titleEl.textContent = config[`floor_${i}_title`] || defaultConfig[`floor_${i}_title`];
+          titleEl.style.fontSize = `${baseSize * 2.625}px`;
+        }
+        if (descEl) {
+          descEl.textContent = config[`floor_${i}_desc`] || defaultConfig[`floor_${i}_desc`];
+          descEl.style.fontSize = `${baseSize * 1.25}px`;
+        }
+      }
+      
+      const finalTitle = document.getElementById('finalTitle');
+      const finalSubtitle = document.getElementById('finalSubtitle');
+      const ctaPrimary = document.getElementById('ctaPrimary');
+      const ctaSecondary = document.getElementById('ctaSecondary');
+      
+      if (finalTitle) {
+        finalTitle.textContent = config.final_title || defaultConfig.final_title;
+        finalTitle.style.fontSize = `${baseSize * 3.5}px`;
+      }
+      if (finalSubtitle) {
+        finalSubtitle.textContent = config.final_subtitle || defaultConfig.final_subtitle;
+        finalSubtitle.style.fontSize = `${baseSize * 1.75}px`;
+      }
+      if (ctaPrimary) {
+        ctaPrimary.textContent = config.cta_primary || defaultConfig.cta_primary;
+        ctaPrimary.style.fontSize = `${baseSize * 1.375}px`;
+      }
+      if (ctaSecondary) {
+        ctaSecondary.textContent = config.cta_secondary || defaultConfig.cta_secondary;
+        ctaSecondary.style.fontSize = `${baseSize * 1.375}px`;
+      }
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => {
+              config.secondary_action_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) {
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) {
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['hero_title', config.hero_title || defaultConfig.hero_title],
+        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+        ['hero_button', config.hero_button || defaultConfig.hero_button],
+        ['floor_1_title', config.floor_1_title || defaultConfig.floor_1_title],
+        ['floor_1_desc', config.floor_1_desc || defaultConfig.floor_1_desc],
+        ['floor_2_title', config.floor_2_title || defaultConfig.floor_2_title],
+        ['floor_2_desc', config.floor_2_desc || defaultConfig.floor_2_desc],
+        ['floor_3_title', config.floor_3_title || defaultConfig.floor_3_title],
+        ['floor_3_desc', config.floor_3_desc || defaultConfig.floor_3_desc],
+        ['floor_4_title', config.floor_4_title || defaultConfig.floor_4_title],
+        ['floor_4_desc', config.floor_4_desc || defaultConfig.floor_4_desc],
+        ['floor_5_title', config.floor_5_title || defaultConfig.floor_5_title],
+        ['floor_5_desc', config.floor_5_desc || defaultConfig.floor_5_desc],
+        ['floor_6_title', config.floor_6_title || defaultConfig.floor_6_title],
+        ['floor_6_desc', config.floor_6_desc || defaultConfig.floor_6_desc],
+        ['floor_7_title', config.floor_7_title || defaultConfig.floor_7_title],
+        ['floor_7_desc', config.floor_7_desc || defaultConfig.floor_7_desc],
+        ['final_title', config.final_title || defaultConfig.final_title],
+        ['final_subtitle', config.final_subtitle || defaultConfig.final_subtitle],
+        ['cta_primary', config.cta_primary || defaultConfig.cta_primary],
+        ['cta_secondary', config.cta_secondary || defaultConfig.cta_secondary]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Navigation functionality
+    const navDots = document.querySelectorAll('.nav-dot');
+    navDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Update active nav dot on scroll
+    const sections = document.querySelectorAll('section');
+    const observerOptions = {
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navDots.forEach(dot => dot.classList.remove('active'));
+          const activeSection = entry.target.id;
+          const activeDot = document.querySelector(`[data-section="${activeSection}"]`);
+          if (activeDot) {
+            activeDot.classList.add('active');
+          }
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+
+    // Hero button scroll to first floor
+    const heroButton = document.getElementById('heroButton');
+    if (heroButton) {
+      heroButton.addEventListener('click', () => {
+        const floor1 = document.getElementById('floor1');
+        if (floor1) {
+          floor1.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    // Next floor buttons
+    const nextFloorBtns = document.querySelectorAll('.next-floor-btn');
+    nextFloorBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const nextSection = btn.getAttribute('data-next');
+        const section = document.getElementById(nextSection);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // CTA buttons now redirect to WhatsApp
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ad06da4d65cb6ac',t:'MTc2NTU3NjEzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
