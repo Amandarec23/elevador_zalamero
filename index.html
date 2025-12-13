@@ -581,8 +581,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 85%;
-      height: 85%;
+      width: 90%;
+      height: 90%;
       background: white;
       border-radius: 20px;
       box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
@@ -590,42 +590,32 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 60px 40px;
+      padding: 40px 30px;
       text-align: center;
     }
     
     .flyer-title {
-      font-size: 56px;
+      font-size: 48px;
       font-weight: 900;
       background: linear-gradient(135deg, #5CD6E0, #E91E8C);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 20px;
-      line-height: 1.2;
-    }
-    
-    .flyer-subtitle {
-      font-size: 28px;
-      font-weight: 600;
-      color: #B76FE8;
-      margin-bottom: 50px;
+      line-height: 1.1;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
     
     .flyer-visual {
       width: 100%;
-      max-width: 400px;
-      height: 250px;
-      background: linear-gradient(135deg, rgba(92, 214, 224, 0.2), rgba(233, 30, 140, 0.2));
+      max-width: 600px;
+      height: 450px;
       border-radius: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      font-weight: 600;
-      color: #666;
-      margin-bottom: 50px;
-      border: 3px dashed #E91E8C;
+      margin-bottom: 40px;
+      overflow: hidden;
     }
     
     .cta-container {
@@ -682,8 +672,11 @@
       .hero-subtitle { font-size: 18px; }
       .floor-title { font-size: 32px; }
       .floor-text { font-size: 16px; }
-      .flyer-title { font-size: 38px; }
-      .flyer-subtitle { font-size: 22px; }
+      .flyer-title { font-size: 36px; }
+      .flyer-visual { 
+        max-width: 450px; 
+        height: 320px;
+      }
       .navigation-guide { right: 10px; padding: 15px 8px; }
       .nav-dot { width: 12px; height: 12px; }
       .cta-button, .cta-primary, .cta-secondary, .next-floor-btn {
@@ -870,32 +863,24 @@
      <h2 class="floor-title" id="floor7Title">¡Es tu momento de brillar!</h2>
      <p class="floor-text" id="floor7Desc">Únete a nuestra comunidad y transforma tu vida. ¡El próximo éxito puedes ser tú!</p><button class="next-floor-btn" data-next="final"> Llegar al Destino Final <span>✨</span> </button>
     </div>
-  <!-- Final Section -->
-<section class="final-section" id="final">
+   </section><!-- Final Section -->
+   <section class="final-section" id="final">
     <div class="final-doors">
-        <div class="final-door final-door-left">
-            <div class="door-handle"></div>
-        </div>
-        <div class="final-door final-door-right">
-            <div class="door-handle"></div>
-        </div>
-        <div class="flyer-container">
-            <h2 class="flyer-title" id="finalTitle">¡Tu viaje comienza aquí!</h2>
-            <p class="flyer-subtitle" id="finalSubtitle">Únete al Tour 2026</p>
-            <div class="flyer-visual">
-                <img src="imagenes/flyer.jpeg" 
-                     alt="Flyer Tour 2026 - La Zalamería"
-                     style="width: 100%; height: 100%; object-fit: contain; border-radius: 15px;">
-            </div>
-            <div class="cta-container">
-                <a href="https://api.whatsapp.com/send?phone=573014878681" target="_blank" rel="noopener noreferrer" class="cta-primary" id="ctaPrimary">Inscribirme</a>
-                <a href="https://api.whatsapp.com/send?phone=573014878681" target="_blank" rel="noopener noreferrer" class="cta-secondary" id="ctaSecondary">Saber más</a>
-            </div>
-        </div>
+     <div class="final-door final-door-left">
+      <div class="door-handle"></div>
+     </div>
+     <div class="final-door final-door-right">
+      <div class="door-handle"></div>
+     </div>
+     <div class="flyer-container">
+      <h2 class="flyer-title" id="finalTitle">¡Únete al Tour 2026!</h2>
+      <div class="flyer-visual">
+       <img src="imagenes/flyer.jpeg" alt="Flyer Tour 2026 - La Zalamería" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+      </div>
+      <div class="cta-container"><a href="https://api.whatsapp.com/send?phone=573014878681" target="_blank" rel="noopener noreferrer" class="cta-primary" id="ctaPrimary">Inscribirme</a> <a href="https://api.whatsapp.com/send?phone=573014878681" target="_blank" rel="noopener noreferrer" class="cta-secondary" id="ctaSecondary">Saber más</a>
+      </div>
+     </div>
     </div>
-</section>
-    </div>
-</section>
    </section><!-- Navigation Guide -->
    <div class="navigation-guide">
     <div class="nav-dot active" data-section="hero" data-floor="Hall" title="Entrada"></div>
@@ -935,8 +920,7 @@
       floor_6_desc: 'Un sueño cumplido que abrió nuevas puertas.',
       floor_7_title: '¡Es tu momento de brillar!',
       floor_7_desc: 'Únete a nuestra comunidad y transforma tu vida. ¡El próximo éxito puedes ser tú!',
-      final_title: '¡Tu viaje comienza aquí!',
-      final_subtitle: 'Únete al Tour 2026',
+      final_title: '¡Únete al Tour 2026!',
       cta_primary: 'Inscribirme',
       cta_secondary: 'Saber más'
     };
@@ -980,17 +964,12 @@
       }
       
       const finalTitle = document.getElementById('finalTitle');
-      const finalSubtitle = document.getElementById('finalSubtitle');
       const ctaPrimary = document.getElementById('ctaPrimary');
       const ctaSecondary = document.getElementById('ctaSecondary');
       
       if (finalTitle) {
         finalTitle.textContent = config.final_title || defaultConfig.final_title;
-        finalTitle.style.fontSize = `${baseSize * 3.5}px`;
-      }
-      if (finalSubtitle) {
-        finalSubtitle.textContent = config.final_subtitle || defaultConfig.final_subtitle;
-        finalSubtitle.style.fontSize = `${baseSize * 1.75}px`;
+        finalTitle.style.fontSize = `${baseSize * 3}px`;
       }
       if (ctaPrimary) {
         ctaPrimary.textContent = config.cta_primary || defaultConfig.cta_primary;
@@ -1093,7 +1072,6 @@
         ['floor_7_title', config.floor_7_title || defaultConfig.floor_7_title],
         ['floor_7_desc', config.floor_7_desc || defaultConfig.floor_7_desc],
         ['final_title', config.final_title || defaultConfig.final_title],
-        ['final_subtitle', config.final_subtitle || defaultConfig.final_subtitle],
         ['cta_primary', config.cta_primary || defaultConfig.cta_primary],
         ['cta_secondary', config.cta_secondary || defaultConfig.cta_secondary]
       ]);
